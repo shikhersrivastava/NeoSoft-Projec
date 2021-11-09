@@ -1,0 +1,43 @@
+package com.example.demo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@Component
+public class Controller {
+
+
+    @Autowired
+    private UserServiceInterface userService;
+
+    @PostMapping("/save")
+    public String post(@RequestBody UserDto userDto)
+    {
+       String result= userService.post(userDto);
+       return result;
+    }
+    @PutMapping("/update")
+    public String update(@RequestBody UserDto userDto)
+    {
+        if(userDto.getId()==null)
+        {
+            System.out.println("Id can not be empty");
+            return "Id can not be empty";
+        }
+        String result=userService.update(userDto);
+        return result;
+    }
+    @GetMapping("/searchByName")
+    public User searchByName(@PathVariable String name)
+    {
+        User user=userService.findByName(name);
+        if(user!=null)
+        {
+            return user;
+        }
+        return user;
+    }
+
+}
