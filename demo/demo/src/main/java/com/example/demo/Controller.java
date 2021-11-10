@@ -29,7 +29,7 @@ public class Controller {
         String result=userService.update(userDto);
         return result;
     }
-    @GetMapping("/searchByName")
+    @GetMapping("/searchByName/{name}")
     public User searchByName(@PathVariable String name)
     {
         User user=userService.findByName(name);
@@ -37,6 +37,12 @@ public class Controller {
         {
             return user;
         }
+        return user;
+    }
+    @DeleteMapping("/deleteByid/{id}")
+    public String deleteUser(@PathVariable Long id)
+    {
+        String user=userService.deleteById(id);
         return user;
     }
 

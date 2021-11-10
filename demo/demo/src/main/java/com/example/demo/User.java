@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +11,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="user")
-@Configuration
 @Component
 public class User {
     @Id
