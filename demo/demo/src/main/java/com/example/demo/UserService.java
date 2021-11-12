@@ -1,34 +1,32 @@
-package com.example.demo;
+package com.example.demo1;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@Component
 //@ComponentScan({"com.example.demo"})
-public class UserService implements UserServiceInterface {
+public class UserService {
 
-    @Autowired
-    private UserRepo repo;
+   @Qualifier
+   private  UserRepo repos;
 
 
 
-  @Override
+ // @Override
   public String post(UserDto userDto)
     {
         try {
             User user = new User();
-              user.setAddress(userDto.getAddress());
-              user.setDOB(userDto.getDOB());
+            //  user.setAddress(userDto.getAddress());
+             // user.setDOB(userDto.getDOB());
             user.setName(userDto.getName());
-            user.setPinCode(userDto.getPincode());
-            user.setSurName(userDto.getSurName());
+            //user.setPinCode(userDto.getPincode());
+            //user.setSurName(userDto.getSurName());
 
             System.out.println("user={}" + user.getName());
-            repo.save(user);
+           repos.save(user);
         }
         catch (NullPointerException ex)
         {
@@ -38,11 +36,11 @@ public class UserService implements UserServiceInterface {
 
     }
 
-    @Override
+    //@Override
     public String update(UserDto userDto)
     {
 
-        Optional<User> user=repo.findById(userDto.getId());
+        Optional<User> user=repos.findById(userDto.getId());
         if(user.isEmpty())
         {
             System.out.println("data not found");
@@ -53,19 +51,32 @@ public class UserService implements UserServiceInterface {
         user.get().setAddress(userDto.getAddress());
         user.get().setDOB(userDto.getDOB());
         user.get().setName(userDto.getName());
-        repo.save(user.get());
+        repos.save(user.get());
    return "Success";
     }
 
-    @Override
+    //@Override
     public User findByName(String name)
     {
-        User user=repo.findByName(name);
+        User user=repos.findByName(name);
         if(user!=null)
         {
             return user;
         }
         return new User();
+
+    }
+
+  //  @Override
+    public String deleteById(Long id)
+    {
+        Optional<User> user=repos.findById(id);
+        if(!user.isEmpty())
+        {
+            repos.deleteById(id);
+            return "User Deleted Succes fully";
+        }
+        return "User not found";
 
     }
 }

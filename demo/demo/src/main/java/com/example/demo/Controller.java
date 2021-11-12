@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ public class Controller {
 
 
     @Autowired
-    private UserServiceInterface userService;
+    private UserService userService;
 
     @PostMapping("/save")
     public String post(@RequestBody UserDto userDto)
